@@ -15,4 +15,13 @@ public class LoggerAspect {
 
         return joinPoint.proceed();
     }
+
+    @Around("execution(* com.awesomedesk.j_planner.common.response.exception.*(..))")
+    public Object doAwesomeErrorLog(ProceedingJoinPoint joinPoint) throws Throwable {
+        String name = joinPoint.getSignature().getName();
+        log.info("[Error methodName] : {}", name);
+        log.info("[Error methodArgs] : {}", joinPoint.getArgs());
+
+        return joinPoint.proceed();
+    }
 }
